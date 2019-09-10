@@ -47,16 +47,16 @@ def main():
     # https://stackoverflow.com/questions/1405913/python-32bit-or-64bit-mode
     x64 = sys.maxsize > 2**32
 
-    package_name = "opencv-python"
+    package_name = "opencv-python-nonfree"
 
     if build_contrib and not build_headless:
-        package_name = "opencv-contrib-python"
+        package_name = "opencv-contrib-python-nonfree"
 
     if build_contrib and build_headless:
-        package_name = "opencv-contrib-python-headless"
+        package_name = "opencv-contrib-python-nonfree-headless"
 
     if build_headless and not build_contrib:
-        package_name = "opencv-python-headless"
+        package_name = "opencv-python-nonfree-headless"
 
     long_description = io.open('README.md', encoding="utf-8").read()
     package_version = get_opencv_version()
@@ -117,7 +117,8 @@ def main():
         "-DBUILD_SHARED_LIBS=OFF",
         "-DBUILD_TESTS=OFF",
         "-DBUILD_PERF_TESTS=OFF",
-        "-DBUILD_DOCS=OFF"
+        "-DBUILD_DOCS=OFF",
+        "-DOPENCV_ENABLE_NONFREE=ON"
     ] + (["-DOPENCV_EXTRA_MODULES_PATH=" + os.path.abspath("opencv_contrib/modules")] if build_contrib else [])
 
     # OS-specific components

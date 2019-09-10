@@ -35,9 +35,9 @@ except subprocess.CalledProcessError as e:
     else:
         print(e.output); raise
 
-if len(tag) == 1:
+if len(tag) == 1 and tag[0][0] == 'r':
     # tag identifies the build and should be a sequential revision number
-    version = tag[0]
+    version = tag[0][1:]
     opencv_version += ".{}".format(version)
 else:
     # local version identifier, not to be published on PyPI
